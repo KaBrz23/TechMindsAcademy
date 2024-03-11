@@ -30,7 +30,7 @@ Cadastrar um novo usuário ao acessar a plataforma.
 
 ```js
 {
-    "nome-completo": "Kaue Fernandes Braz",
+    "nome": "Kaue Fernandes Braz",
     "email": "rm97768@fiap.com.br",
     "senha": "auladejava"
 }
@@ -140,6 +140,7 @@ Lista todos os cursos de uma categoria específica
 ```js
 [
     {
+        "id_categoria": 1,
         "id_curso": 1,
         "curso": "Documentação de API",
         "descricao": "Curso sobre como documentar API's Restful",
@@ -148,6 +149,7 @@ Lista todos os cursos de uma categoria específica
         "instrutor": "Gabriel Fernandes"
     },
     {
+        "id_categoria": 1,
         "id_curso": 2,
         "nome": "Java Avançado",
         "descricao": "Aprofunde seus conhecimentos em desenvolvimento web",
@@ -170,7 +172,7 @@ Lista todos os cursos de uma categoria específica
 
 ### Comprar Cursos
 
-`POST` /categoria/{id}/curso/{id}/comprar
+`POST` /usuario/{id_usuario}/comprar
 
 Permite ao usuário comprar cursos na plataforma.
 
@@ -179,15 +181,12 @@ Permite ao usuário comprar cursos na plataforma.
 | campo | tipo | obrigatório | descrição
 |:---:|:---:|:---:|:---:|
 | `id_usuario`|int |✅| ID do usuário que está realizando a compra.
-| `id_categoria`|int|✅| ID da categoria do curso a ser comprado.
-| `id_curso`|int |✅| ID do curso que está sendo comprado.
 | `preco`|double |✅| preço do curso.
 ```js
 {
     "id_usuario": 1,
-    "id_categoria": 1,
-    "id_curso": 2,
     "preco": 199.99
+}
 ```
 
 #### Exemplo de resposta
@@ -195,8 +194,6 @@ Permite ao usuário comprar cursos na plataforma.
 {
     "id_compra": 1,
     "id_usuario": 1,
-    "id_categoria": 1,
-    "id_curso": 2,
     "preco": 199.99
 }
 ```
@@ -206,4 +203,4 @@ Permite ao usuário comprar cursos na plataforma.
 | `201`  | Compra realizada com sucesso
 | `400`  | Validação falhou. Verifique as regras para o corpo da requisição
 | `401`  | Usuário não autenticado. Realize autenticação em /usuario/login
-| `404`  | Não existe uma ou mais dos ids fornecidos. Consulte em /usuario, /categoria e /curso
+| `404`  | Não existe uma ou mais dos ids fornecidos. Consulte em /usuario
