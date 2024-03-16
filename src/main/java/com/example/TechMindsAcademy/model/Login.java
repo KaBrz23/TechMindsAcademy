@@ -1,12 +1,17 @@
 package com.example.TechMindsAcademy.model;
 
-import java.util.Random;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 
-public record Login(Long id, String email, String senha){
-    public Login(Long id, String email, String senha){
-        var key = (id == null) ? Math.abs(new Random().nextLong()) : id;
-        this.id = key;
-        this.email = email;
-        this.senha = senha;
-    }
+@Data
+@Entity
+public class Login{
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id_login;
+    private String email;
+    private String senha;
 }
+

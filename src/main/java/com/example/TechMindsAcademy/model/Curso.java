@@ -1,16 +1,20 @@
 package com.example.TechMindsAcademy.model;
 
-import java.util.Random;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 
-public record Curso(Long id_categoria, Long id_curso, String curso, String descricao, double preco, String duracao, String instrutor){
-    public Curso(Long id_categoria, Long id_curso, String curso, String descricao, double preco, String duracao, String instrutor){
-        var key = (id_curso == null) ? Math.abs(new Random().nextLong()) : id_curso;
-        this.id_curso = key;
-        this.curso = curso;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.duracao = duracao;
-        this.instrutor = instrutor;
-        this.id_categoria = id_categoria;
-    }
+@Data
+@Entity
+public class Curso{
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id_curso;
+    private String curso;
+    private String descricao;
+    private double preco;
+    private String duracao;
+    private String instrutor;
+    private Long id_categoria;
 }
