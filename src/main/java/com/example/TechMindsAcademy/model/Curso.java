@@ -1,5 +1,10 @@
 package com.example.TechMindsAcademy.model;
 
+import org.springframework.hateoas.EntityModel;
+
+import com.example.TechMindsAcademy.controller.cursoController;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Curso{
+public class Curso extends EntityModel<Curso>{
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id_curso;
 
@@ -41,6 +46,17 @@ public class Curso{
     
     @ManyToOne
     private Categoria categoria;
+
+    public EntityModel<Curso> toEntityModel() {
+        return EntityModel.of(
+            this,
+            linkTo(methodOn(cursoController.class).show(id_curso)).withSelfRel(),
+            linkTo(methodOn(cursoController.class).destroy(id_curso)).withRel("delete"),
+            linkTo(methodOn(cursoController.class).index(null)).withRel("contents")
+        );
+    }
+
+
 
     
 }
